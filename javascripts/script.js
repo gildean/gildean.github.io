@@ -6,7 +6,7 @@
         about.style.opacity = 1;
     };
     D.body.onclick = function (e) {
-        if (e.target.id !== 'about') {
+        if (e.target.id !== 'about' && e.target.id !== 'aboutlink') {
             about.style.opacity = 0;
         }
     };

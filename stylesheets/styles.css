@@ -186,6 +186,8 @@ footer {
 }
 
 #about {
+  padding: 1em;
+  opacity: 0;
   z-index: 1000;
   position: fixed;
   top: 0;
