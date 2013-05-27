@@ -281,6 +281,7 @@ footer {
 .topbarfp h1 {
   display: inline-block;
   margin: 0 0 0 0.5em;
+  width: 3.1em;
 }
 
 .topbarlinks {
