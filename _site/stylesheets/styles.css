@@ -170,7 +170,7 @@ footer {
 
 #about {
   position: fixed;
-  top: 50px;
+  top: 0;
   left: 0;
   bottom: 0;
   background: #f5f5f5;
@@ -180,8 +180,8 @@ footer {
 }
 
 .full {
-  z-index: 1000;
-  padding: 2% 3% 0;
+  z-index: 900;
+  padding: 3% 3% 0;
   width: 25%;
   opacity: 1;
 }
