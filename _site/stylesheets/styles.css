@@ -154,8 +154,7 @@ footer {
   display: inline-block;
   font-size: 3em;
   margin: 0 0 0.5em 0;
-  width: auto;
-  min-width: 160px;
+  width: 160px;
 }
 
 .fplink {
