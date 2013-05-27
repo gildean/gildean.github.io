@@ -36,11 +36,12 @@
       <section class="singlepost">
         <h2>{{ page.title }}</h2>
         <p><i>
-          {{ page.date | date: "%B %e, %Y" }} . 
+          {{ page.date | date: "%B %e, %Y" }} 
+          | <a href="http://gildean.github.io{{ page.url }}#disqus_thread" data-disqus-identifier="{{ page.url }}">Comments</a>
+          | Tags: 
           {% for tag in page.tags %}
-            | <a href="/tags/{{ tag }}">{{ tag }}</a> 
+            <a href="/tags/{{ tag }}">{{ tag }}</a> , 
           {% endfor %}
-          | <a href="http://gildean.github.io{{ page.url }}#disqus_thread" data-disqus-identifier="{{ page.url }}"></a>
         </i></p>
         {{ content }}
         <hr>
