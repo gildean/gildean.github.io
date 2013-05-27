@@ -89,4 +89,4 @@ In this example we first create the `led` and then the `button`. When calling th
 
 So running this code simply makes the button turn the led on and off. Awesome.
 
-I made a [fleshed out version](https://github.com/gildean/raspi-ledblinker) of this idea with a in-memory http- and websocket-servers and a simple js-gui, check it out for more ideas on blinking your leds :D
+I made a [fleshed out version](https://github.com/gildean/raspi-ledblinker) of this idea with an in-memory http- and websocket-servers and a simple js-gui, check it out for more ideas on blinking your leds :D
