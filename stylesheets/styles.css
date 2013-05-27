@@ -242,7 +242,7 @@ footer {
 
 .topbarlinks a {
   margin: 0 0.5em;
-  
+  color: #222;
 }
 
 .topbar .logo {
@@ -264,6 +264,9 @@ footer {
 .footerlinks {
   position: absolute;
   bottom: 6em;
+}
+.footerlinks a { 
+  color: #222;
 }
 
 .footerlinks .view {
