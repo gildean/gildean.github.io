@@ -19,7 +19,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
   color:#222;
   margin: 1.5em 0 1em;
-  word-wrap:pre;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 p, ul, ol, table, pre, dl {
