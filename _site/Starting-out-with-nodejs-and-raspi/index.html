@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>blog it, ok</title>
-
+    <meta name="description" content="How to get node.js running on your raspi and interact with the gpio.">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Starting out with node.js and raspberry pi | blog it, ok</title>
     <link rel="stylesheet" href="/stylesheets/styles.css">
     <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -36,12 +36,13 @@
         <p><i>
           May 26, 2013 . 
           
-            <a href="/tags/javascript">javascript</a>
+            | <a href="/tags/javascript">javascript</a> 
           
-            <a href="/tags/node.js">node.js</a>
+            | <a href="/tags/node.js">node.js</a> 
           
-            <a href="/tags/raspi">raspi</a>
+            | <a href="/tags/raspi">raspi</a> 
           
+          | <a href="http://gildean.github.io/Starting-out-with-nodejs-and-raspi#disqus_thread" data-disqus-identifier="/Starting-out-with-nodejs-and-raspi"></a>
         </i></p>
         <p>In this post i&#8217;ll try and show you how you can get started with node.js on the raspberry pi and how to interact with the gpio-pins on it.</p>
 
@@ -120,6 +121,24 @@ button.watch(function (err, value) {
 <p>So running this code simply makes the button turn the led on and off. Awesome.</p>
 
 <p>I made a <a href='https://github.com/gildean/raspi-ledblinker'>fleshed out version</a> of this idea with a in-memory http- and websocket-servers and a simple js-gui, check it out for more ideas on blinking your leds :D</p>
+        <hr>
+       <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'blogitok'; // required: replace example with your forum shortname
+                          var disqus_identifier = '/Starting-out-with-nodejs-and-raspi';
+              var disqus_url = 'http://gildean.github.io/Starting-out-with-nodejs-and-raspi';
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
       </section>
     </div>
     <script src="/javascripts/scale.fix.js"></script>
