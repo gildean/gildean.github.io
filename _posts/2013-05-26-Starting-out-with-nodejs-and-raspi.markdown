@@ -55,7 +55,7 @@ The code to turn the led on and off would look something like this:
         }
     });
 
-In the code above we first require the module and grab a single constructor function `Gpio` from it. On the next line we create a new variable called `led` which is the return value of the constructor function, to which we pass the pin-number and direction as arguments.
+In the code above we first require the module and grab a single constructor function `Gpio` from it. On the next line we create a new variable called `led` which is the return value of the constructor function, to which we pass the pin-number and direction as arguments. Note that the number of the pin is the gpio-number, and not the location of the pin on the header.
 
 Then we write a value (1) on the pin asynchronously, and declare a callback function to be called when the write is complete. In the callback we check for an error, and if none is found, set a timeout to run in 10 seconds. 
 In the anon callback function of the timeout we write a new value (0), but this time synchronously, unexport the led and exit the process.
