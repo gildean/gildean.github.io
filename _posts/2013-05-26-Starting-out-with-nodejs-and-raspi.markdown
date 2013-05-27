@@ -55,7 +55,7 @@ The code to turn the led on and off would look something like this:
         }
     });
 
-In the code above we first require the module and grab a single constructor function `Gpio` from it. On the next line we create a new variable called `led` which is the retur value of the constructor function, to which we pass the pin-number and direction as arguments.
+In the code above we first require the module and grab a single constructor function `Gpio` from it. On the next line we create a new variable called `led` which is the return value of the constructor function, to which we pass the pin-number and direction as arguments.
 
 Then we write a value (1) on the pin asynchronously, and declare a callback function to be called when the write is complete. In the callback we check for an error, and if none is found, set a timeout to run in 10 seconds. 
 In the anon callback function of the timeout we write a new value (0), but this time synchronously, unexport the led and exit the process.
@@ -64,7 +64,7 @@ In the anon callback function of the timeout we write a new value (0), but this 
 
 Connecting a button is almost the same, except this time we need to first make the connection between the pin and the button work the other direction, and for that we need to either use a pull-up or a pull-down resistor (10K ohm) for the button (and preferably a smaller 1K ohm resistor to protect the pin in a case of human error).
 
-For this I chose the pin 17 pulled up (you can find a bunch of tutorial helping you make the connection correctly), so a simple code (including the led from above) to make use the button would be:
+For this I chose the pin 17 pulled up (you can find a bunch of tutorials helping you make the connection correctly), so a simple code (including the led from above) to make use of the button would be:
 
     var Gpio = require('onoff').Gpio;
     var led = new Gpio(22, 'out');
