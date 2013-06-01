@@ -91,7 +91,7 @@
 
 <p>As the rpi normally runs with an SD-card, I didn&#8217;t want to put too much stress on the disk and therefore wrote the <a href='https://github.com/gildean/PiTherm/blob/master/httpserver.js'>HTTP-server</a> to run completely in-memory. And because the device might be set up somewhere with poor internet-connection, I made the HTTP-server also save a Gzipped and a deflated version of each file, and added a simple etagging-function to run as well. The HTML and CSS are also concatted at startup, as are the two js-files.</p>
 
-<p>For the application to be nice and real-timey, I included a <a href='https://github.com/gildean/PiTherm/blob/master/websocketserver.js'>WebSocket-server</a> to the mix. All the requests from the frontend after the initial page-load are made through the WebSocket-connection, which also helps to keep the network-traffic to a minimum. The server send new updates every 30 seconds so the page can be used as an actual thermometer.</p>
+<p>For the application to be nice and real-timey, I included a <a href='https://github.com/gildean/PiTherm/blob/master/websocketserver.js'>WebSocket-server</a> to the mix. All the requests from the frontend after the initial page-load are made through the WebSocket-connection, which also helps to keep the network-traffic to a minimum. The server sends new updates every 30 seconds so the page can be used as an actual thermometer. With the websocket-server being the actual way of serving the data, the web-page isn't the only option when creating a client either.</p>
 
 <h3 id='something_to_look_at'>Something to look at</h3>
 
