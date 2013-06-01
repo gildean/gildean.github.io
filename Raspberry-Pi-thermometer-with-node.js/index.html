@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Building a web-enabled thermometer with node.js and a rpi">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <title>Raspberry Pi thermometer with node.js | blog it, ok</title>
+    <link rel="stylesheet" href="/stylesheets/styles.css">
+    <link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/pygment_trac.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div id="wrapper" class="wrapper">
+            <div class="topbar">
+        <a class="topbarfp" href="/"><h1>blog it, </h1><img src="/img/logo.png" alt="ok" class="logo" /> </a>
+        Ideas, demos and utter waste of time.
+        <div class="topbarlinks">
+          <a href="https://github.com/gildean"><i class="icon-github"></i> github</a>
+          <a href="#" id="aboutlink"><i class="icon-question-sign"></i> about</a>
+        </div>
+      </div>
+            <section id="about" class="min">
+        <h3>About the author</h3>
+        <ul>
+          <li>Olli K. aka. gildean</li>
+          <li>On the internet since 1995.</li>
+          <li>Fair amount of experience with networks and computers.</li>
+          <li>Likes javascript.</li>
+          <li>Find me on <a href="irc://irc.freenode.net/raspberrypi">irc</a></li>
+        </ul>
+      </section>
+      <section class="singlepost">
+        <h2>Raspberry Pi thermometer with node.js</h2>
+        <p>
+          <i class="icon-calendar"></i> June  1, 2013
+          | <i class="icon-comment"></i><a href="http://gildean.github.io/Raspberry-Pi-thermometer-with-node.js#disqus_thread" data-disqus-identifier="/Raspberry-Pi-thermometer-with-node.js"> Comments</a>
+          | <i class="icon-tags"></i> Tags: 
+          
+            <a href="/tags/javascript">javascript</a>  , 
+          
+            <a href="/tags/node.js">node.js</a>  , 
+          
+            <a href="/tags/raspi">raspi</a> 
+          
+        </p>
+        <p>Building a web-enabled thermometer from a raspi is a fun and relatively easy project.</p>
+
+<h3 id='picking_out_the_sensor_and_building_a_simple_harness'>Picking out the sensor and building a simple harness</h3>
+
+<p>Like so many other rpi thermometer builds, I chose the DS180B20 single wire digital temperature sensor, as it&#8217;s quite accurate for its really cheap price.</p>
+
+<p><img alt='DS18B20' src='/img/posts/2013-06-01/ds18b20.jpg' /></p>
+
+<p>For the wiring I used parts from an old broken computer, a floppy-disk cable to connect to the Pi, and some cables from the PSU with the molex-connectors intact. I&#8217;m planning to upgrade this into some rj-45 jacks instead, so I can easily make some longer cables with cat-6.</p>
+
+<p><img alt='A wiring harness' src='/img/posts/2013-06-01/cable_final.jpg' /></p>
+
+<p>For now the sensors sit on top of an old CDA-cable, that i cut in half and soldered some connectors on the other end to fit the molex-connectors on the harness.</p>
+
+<p><img alt='Modified CDA' src='/img/posts/2013-06-01/ds18b20_fitted.jpg' /></p>
+
+<p>The sensors need to be pulled down with a 4.7K ohm resistor, which i just stuck in one of the molexes in the harness.</p>
+
+<p><img alt='4K7 fitted' src='/img/posts/2013-06-01/4k7_fitted.jpg' /></p>
+
+<p>Here is the basic schematic of the connections</p>
+
+<p><img alt='schematic' src='/img/posts/2013-06-01/schematic.jpg' /></p>
+
+<p>And here is the finished product</p>
+
+<p><img alt='finished' src='/img/posts/2013-06-01/final.jpg' /></p>
+
+<p>As you can see, you can use multiple sensors on the same wires, no need to use multiple pins on the pi.</p>
+
+<h3 id='building_an_application'>Building an application</h3>
+
+<p>I wanted to make the app at least somewhat modular and extensible, so that it could use different ways of storing the data and use an arbitrary number of sensors.</p>
+
+<p>To achieve this goal with the least amount of effort, I just wrote a <a href='https://github.com/gildean/PiTherm/blob/master/config.json.default'>simple JSON-file to be used as the config</a>. In the file you can: set up your sensors, set up your database, set a refresh-rate and a css-theme.</p>
+
+<h3 id='where_to_put_the_data'>Where to put the data?</h3>
+
+<p>For the db in the initial build I chose the most used store for timeseries data; RRD. Fortunately there are a couple of different modules for node to use RRD, from which I picked the <a href='https://github.com/Orion98MC/node_rrd'>node rrd</a>. With a little tinkering, I wrote a <a href='https://github.com/gildean/PiTherm/blob/master/dbdrivers/rrd.js'>&#8220;driver&#8221;</a> to be used that creates a new RRD-file if none exists, and does searches properly as RRD requires the timespan to be divisble with the interval of the RRA. This module also requires for the <a href='http://oss.oetiker.ch/rrdtool/'>RRDtool</a> to be installed, but that just required a quick <code>sudo apt-get install rrdtool</code>.</p>
+
+<h3 id='serving_the_data'>Serving the data</h3>
+
+<p>As the rpi normally runs with an SD-card, I didn&#8217;t want to put too much stress on the disk and therefore wrote the <a href='https://github.com/gildean/PiTherm/blob/master/httpserver.js'>HTTP-server</a> to run completely in-memory. And because the device might be set up somewhere with poor internet-connection, I made the HTTP-server also save a Gzipped and a deflated version of each file, and added a simple etagging-function to run as well. The HTML and CSS are also concatted at startup, as are the two js-files.</p>
+
+<p>For the application to be nice and real-timey, I included a <a href='https://github.com/gildean/PiTherm/blob/master/websocketserver.js'>WebSocket-server</a> to the mix. All the requests from the frontend after the initial page-load are made through the WebSocket-connection, which also helps to keep the network-traffic to a minimum. The server send new updates every 30 seconds so the page can be used as an actual thermometer.</p>
+
+<h3 id='something_to_look_at'>Something to look at</h3>
+
+<p><img alt='Frontend' src='/img/posts/2013-06-01/pitemp.png' /></p>
+
+<p>The frontend itself is a fairly simple mix of HTML, CSS and JavaScript with the ability to change the color-theme with a separate CSS-file. The elements for each sensor are built on pageload, so the frontend could also be used with as many sensors as wanted.</p>
+
+<p>For the graphs I decided to use <a href='http://d3js.org/'>D3.js</a> and make the graphs zoomable and pannable, so a graph with a large number of datapoints would be more usable. Here&#8217;s a sample of the graphs:</p>
+
+<p><img alt='D3 in action' src='/img/posts/2013-06-01/pitemp-graph.png' /></p>
+
+<h3 id='conclusion'>Conclusion</h3>
+
+<p>In the end the application was fairly simple to create and should be extensible at least to a certain degree. In the future I&#8217;ll also add an alert system that can be configured to send emails if the temperature drops or rises over a set mark.</p>
+
+<p>The complete source can be viewed/forked/cloned at <a href='https://github.com/gildean/PiTherm'>https://github.com/gildean/PiTherm</a>.</p>
+
+<p>If you have any ideas or complaints, please post a comment below.</p>
+        <hr>
+               <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'blogitok'; // required: replace example with your forum shortname
+          var disqus_identifier = '/Raspberry-Pi-thermometer-with-node.js';
+          var disqus_url = 'http://gildean.github.io/Raspberry-Pi-thermometer-with-node.js';
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
+      </section>
+    </div>
+          <script src="/javascripts/scale.fix.js"></script>
+    <script src="/javascripts/script.js"></script>
+      <script>
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script>
+        try {
+          var pageTracker = _gat._getTracker("UA-25911839-11");
+          pageTracker._trackPageview();
+        } catch(err) {}
+      </script>
+  </body>
+</html>
