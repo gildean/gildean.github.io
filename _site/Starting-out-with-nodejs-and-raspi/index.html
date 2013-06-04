@@ -125,7 +125,23 @@ button.watch(function (err, value) {
 
 <p>I made a <a href='https://github.com/gildean/raspi-ledblinker'>fleshed out version</a> of this idea with an in-memory http- and websocket-servers and a simple js-gui, check it out for more ideas on blinking your leds :D</p>
         <hr>
-       Included file 'disqus.html' not found in _includes directory
+               <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+          var disqus_shortname = 'blogitok'; // required: replace example with your forum shortname
+          var disqus_identifier = '/Starting-out-with-nodejs-and-raspi';
+          var disqus_url = 'http://gildean.github.io/Starting-out-with-nodejs-and-raspi';
+
+          /* * * DON'T EDIT BELOW THIS LINE * * */
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+      
       </section>
     </div>
           <script src="/javascripts/scale.fix.js"></script>
